@@ -1,7 +1,12 @@
-Beyondar
+AR-POI
 ========
+Augmented Reality Point of Interest (AR-POI) is a mobile app for visualising geospatial features via markers superimposed over the live camera view (on a mobile phone or tablet). In the near future this app could be be adapted to work on head-mounted wearables such as Google Glass or ported to run on Microsoft HoloLens.
 
-This framework has been designed to offer some resources to those developers with an interest in working with Augmented Reality based on geolocalization on SmartPhones and tablets.
+Point of Interest is a subject term, it depends on what the user is actually interested in at any given time. For the purpose of demonstrating the proof of concept Historical Places, Things, Organisations, Images and Events will be sourced from the SA History Hub GEOJSON Endpoint and the State Library of SA Photographs and National Library of Australia Trove.
+
+BeyondAR
+========
+The BeyondAR framework has been designed to offer some resources to those developers with an interest in working with Augmented Reality based on geolocalization on SmartPhones and tablets.
 
 Don't forget to check the [wiki](https://github.com/BeyondAR/beyondar/wiki) and the [documentation](http://beyondar.github.io/beyondar/doxygen/index.html) to get more information about how to use this framework.
 
@@ -21,8 +26,8 @@ BeyondAR platform only supports Android (Google Glass included). We are currentl
 
 <table  border="0" align="center">
 <tr>
-  <td><img src="http://beyondar.github.io/beyondar/images/screen_4.jpg"></td>
-  <td><img src="http://beyondar.github.io/beyondar/images/screen_1.jpg"></td> 
+  <td><!-- img src="http://beyondar.github.io/beyondar/images/screen_4.jpg"></td>
+  <td><img src="http://beyondar.github.io/beyondar/images/screen_1.jpg" --></td> 
 </tr>
 </table>
 
@@ -30,7 +35,8 @@ BeyondAR platform only supports Android (Google Glass included). We are currentl
 
 # License
 ~~~
-Copyright (C) 2014 BeyondAR
+AR-POI Proof of Concept App and Open Data Integration Copyright (C) 2015 Greg Bowering
+BeyondAR Platform Copyright (C) 2014 BeyondAR
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
