@@ -24,28 +24,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.beyondar.example.AttachViewToGeoObjectActivity;
-import com.beyondar.example.BeyondarLocationManagerMapActivity;
-import com.beyondar.example.CameraWithGoogleMapsActivity;
-import com.beyondar.example.CameraWithScreenShotActivity;
-import com.beyondar.example.CameraWithTouchEventsActivity;
-import com.beyondar.example.ChangeGeoObjectImagesOnTouchActivity;
 import com.beyondar.example.CustomWorldHelper;
-import com.beyondar.example.GoogleMapActivity;
-import com.beyondar.example.SimpleCameraActivity;
-import com.beyondar.example.SimpleCameraWithCustomFilterActivity;
-import com.beyondar.example.SimpleCameraWithMaxFarMinAwayActivity;
-import com.beyondar.example.SimpleCameraWithRadarActivity;
-import com.beyondar.example.StaticViewGeoObjectActivity;
 
 public class DemoActivity extends Activity implements OnItemClickListener {
 
 	private ListView mLisViewt;
-	private String[] values = new String[] { "Simple AR camera",
-			"Simple camera with a max/min distance far for rendering", "Google maps",
-			"AR camera with Gooogle maps", "Camera with touch events", "Camera with screenshot",
-			"Change GeoObject images on touch", "Attach view to GeoObject", "Set static view to geoObject",
-			"Customize sensor filter", "Simple AR camera with a radar view"};
+    private String[] values = new String[]{
+            "1. AR Marker test",
+            "2. GPS Location",
+    };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,41 +54,41 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 		switch (pos) {
 		case 0:
-			openActivity(SimpleCameraActivity.class);
-			break;
+            openActivity(Iteration1.class);
+            break;
 		case 1:
-			openActivity(SimpleCameraWithMaxFarMinAwayActivity.class);
-			break;
+            openActivity(Iteration1.class);
+            break;
 		case 2:
-			openActivity(GoogleMapActivity.class);
-			break;
+            // openActivity(GoogleMapActivity.class);
+            break;
 		case 3:
-			openActivity(CameraWithGoogleMapsActivity.class);
-			break;
+            // openActivity(CameraWithGoogleMapsActivity.class);
+            break;
 		case 4:
-			openActivity(CameraWithTouchEventsActivity.class);
-			break;
+            // openActivity(CameraWithTouchEventsActivity.class);
+            break;
 		case 5:
-			openActivity(CameraWithScreenShotActivity.class);
-			break;
+            // openActivity(CameraWithScreenShotActivity.class);
+            break;
 		case 6:
-			openActivity(ChangeGeoObjectImagesOnTouchActivity.class);
-			break;
+            // openActivity(ChangeGeoObjectImagesOnTouchActivity.class);
+            break;
 		case 7:
-			openActivity(AttachViewToGeoObjectActivity.class);
-			break;
+            // openActivity(AttachViewToGeoObjectActivity.class);
+            break;
 		case 8:
-			openActivity(StaticViewGeoObjectActivity.class);
-			break;
+            // openActivity(StaticViewGeoObjectActivity.class);
+            break;
 		case 9:
-			openActivity(SimpleCameraWithCustomFilterActivity.class);
-			break;
+            // openActivity(SimpleCameraWithCustomFilterActivity.class);
+            break;
 		case 10:
-			openActivity(SimpleCameraWithRadarActivity.class);
-			break;
+            // openActivity(SimpleCameraWithRadarActivity.class);
+            break;
 		case 11:
-			openActivity(BeyondarLocationManagerMapActivity.class);
-			break;
+            // openActivity(BeyondarLocationManagerMapActivity.class);
+            break;
 		default:
 			break;
 		}
