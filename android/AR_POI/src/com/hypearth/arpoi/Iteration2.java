@@ -37,7 +37,6 @@ import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 import com.beyondar.android.util.location.BeyondarLocationManager;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
-import com.beyondar.example.GoogleMapActivity;
 
 public class Iteration2 extends FragmentActivity implements OnSeekBarChangeListener, View.OnClickListener, LocationListener {
 
