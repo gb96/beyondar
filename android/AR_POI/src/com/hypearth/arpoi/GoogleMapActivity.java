@@ -29,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 public class GoogleMapActivity extends FragmentActivity implements OnMarkerClickListener, LocationListener {
@@ -73,6 +74,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
 
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
         BeyondarLocationManager.addGeoObjectLocationUpdate(user);
+        BeyondarLocationManager.addLocationListener(this);
     }
 
     @Override
@@ -92,6 +94,9 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
     public void onLocationChanged(Location location) {
         if (mWorld != null) {
             mWorld.setLocation(location);
+            LatLng userLocation = new LatLng(mWorld.getLatitude(), mWorld.getLongitude());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
         }
     }
 
@@ -109,4 +114,21 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
     public void onProviderDisabled(String provider) {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // When the activity is resumed it is time to enable the
+        // BeyondarLocationManager
+        BeyondarLocationManager.enable();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // To avoid unnecessary battery usage disable BeyondarLocationManager
+        // when the activity goes on pause.
+        BeyondarLocationManager.disable();
+    }
+
 }

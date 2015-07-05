@@ -132,6 +132,7 @@ public class Iteration2 extends FragmentActivity implements OnSeekBarChangeListe
 
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
         BeyondarLocationManager.addGeoObjectLocationUpdate(user);
+        BeyondarLocationManager.addLocationListener(this);
 
         Log.i(Iteration2.class.getName(), "onCreate() 14");
 
@@ -205,4 +206,21 @@ public class Iteration2 extends FragmentActivity implements OnSeekBarChangeListe
     public void onProviderDisabled(String provider) {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // When the activity is resumed it is time to enable the
+        // BeyondarLocationManager
+        BeyondarLocationManager.enable();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // To avoid unnecessary battery usage disable BeyondarLocationManager
+        // when the activity goes on pause.
+        BeyondarLocationManager.disable();
+    }
+
 }
