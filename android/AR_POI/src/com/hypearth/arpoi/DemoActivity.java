@@ -32,6 +32,7 @@ public class DemoActivity extends Activity implements OnItemClickListener {
     private String[] values = new String[]{
             "1. AR Marker test",
 			"2. GPS Location with SA History Places",
+			"3. GPS with SA History Places, Events, Organisations",
 	};
 
 	@Override
@@ -60,8 +61,8 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 			openActivity(Iteration2.class);
 			break;
 		case 2:
-            // openActivity(GoogleMapActivity.class);
-            break;
+			openActivity(Iteration3.class);
+			break;
 		case 3:
             // openActivity(CameraWithGoogleMapsActivity.class);
             break;

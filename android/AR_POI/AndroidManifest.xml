@@ -41,7 +41,9 @@
         </activity>
         <activity android:name=".Iteration1" />
         <activity android:name=".Iteration2" />
+        <activity android:name=".Iteration3" />
         <activity android:name=".GoogleMapActivity" />
+        <activity android:name=".GoogleMapActivity3" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
