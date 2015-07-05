@@ -116,8 +116,8 @@ public class Iteration2 extends FragmentActivity implements OnSeekBarChangeListe
 
         // Radar range slider
         mSeekBarMaxDistance.setOnSeekBarChangeListener(this);
-        mSeekBarMaxDistance.setMax(3000);
-        mSeekBarMaxDistance.setProgress(1000);
+        mSeekBarMaxDistance.setMax(10_000);
+        mSeekBarMaxDistance.setProgress(4000);
 
         Log.i(Iteration2.class.getName(), "onCreate() 12");
 

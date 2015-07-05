@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.beyondar.android.plugin.googlemap.GoogleMapWorldPlugin;
+import com.beyondar.android.util.location.BeyondarLocationManager;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -69,6 +70,9 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
         user.setImageResource(R.drawable.flag);
         user.setName("User position");
         mWorld.addBeyondarObject(user);
+
+        BeyondarLocationManager.addWorldLocationUpdate(mWorld);
+        BeyondarLocationManager.addGeoObjectLocationUpdate(user);
     }
 
     @Override
