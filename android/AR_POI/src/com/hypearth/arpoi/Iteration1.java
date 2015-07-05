@@ -24,6 +24,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.opengl.util.LowPassFilter;
 import com.beyondar.android.plugin.radar.RadarView;
 import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 import com.beyondar.android.world.World;
@@ -92,6 +93,8 @@ public class Iteration1 extends FragmentActivity implements OnSeekBarChangeListe
         mSeekBarMaxDistance.setMax(300);
         mSeekBarMaxDistance.setProgress(23);
 
+        // Filter Phone Motion Sensor to damp shakey movements
+        LowPassFilter.ALPHA = 0.015f;
     }
 
     @Override

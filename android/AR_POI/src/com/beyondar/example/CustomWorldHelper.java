@@ -15,14 +15,12 @@
  */
 package com.beyondar.example;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.hypearth.arpoi.R;
 
-@SuppressLint("SdCardPath")
 public class CustomWorldHelper {
 	public static final int LIST_TYPE_EXAMPLE_1 = 1;
 

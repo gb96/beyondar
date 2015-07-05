@@ -44,4 +44,11 @@
             android:layout_toRightOf="@id/textMaxDistance" />
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/showMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="Map" />
+
 </FrameLayout>

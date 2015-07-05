@@ -31,8 +31,8 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 	private ListView mLisViewt;
     private String[] values = new String[]{
             "1. AR Marker test",
-            "2. GPS Location",
-    };
+			"2. GPS Location with SA History Places",
+	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,8 @@ public class DemoActivity extends Activity implements OnItemClickListener {
             openActivity(Iteration1.class);
             break;
 		case 1:
-            openActivity(Iteration1.class);
-            break;
+			openActivity(Iteration2.class);
+			break;
 		case 2:
             // openActivity(GoogleMapActivity.class);
             break;
