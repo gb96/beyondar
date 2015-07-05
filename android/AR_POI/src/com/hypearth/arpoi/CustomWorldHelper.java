@@ -77,7 +77,7 @@ public class CustomWorldHelper {
                                 for (int i = 0; i < features.length(); i++) {
                                     JSONObject feature = features.getJSONObject(i);
                                     JSONObject geometry = feature.getJSONObject("geometry");
-                                    JSONArray coordinates = feature.getJSONArray("coordinates");
+                                    JSONArray coordinates = geometry.getJSONArray("coordinates");
                                     double lng = coordinates.getDouble(0);
                                     double lat = coordinates.getDouble(1);
                                     JSONObject properties = feature.getJSONObject("properties");
