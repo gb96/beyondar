@@ -67,7 +67,7 @@ public class GoogleMapActivity3 extends FragmentActivity implements OnMarkerClic
         mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
 
         // Lets add the user position
-        GeoObject user = new GeoObject(1000l);
+        GeoObject user = new GeoObject(1_000L);
         user.setGeoPosition(mWorld.getLatitude(), mWorld.getLongitude());
         user.setImageResource(R.drawable.flag);
         user.setName("User position");

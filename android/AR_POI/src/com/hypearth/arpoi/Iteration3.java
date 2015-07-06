@@ -70,7 +70,7 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // set the radar view in to our radar plugin
         mRadarPlugin.setRadarView(mRadarView);
         // Set how far (in meters) we want to display in the view
-        mRadarPlugin.setMaxDistance(2000);
+        mRadarPlugin.setMaxDistance(4_000);
 
         // We can customize the color of the items on the Radar view
         mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_EVENT_CODE, Color.RED);
@@ -91,10 +91,10 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // Radar range slider
         mSeekBarMaxDistance.setOnSeekBarChangeListener(this);
         mSeekBarMaxDistance.setMax(10_000);
-        mSeekBarMaxDistance.setProgress(4000);
+        mSeekBarMaxDistance.setProgress(4_000);
 
         // Lets add the user position to the map
-        GeoObject user = new GeoObject(1000l);
+        GeoObject user = new GeoObject(1_000L);
         user.setGeoPosition(mWorld.getLatitude(), mWorld.getLongitude());
         user.setImageResource(R.drawable.flag);
         user.setName("User position");
