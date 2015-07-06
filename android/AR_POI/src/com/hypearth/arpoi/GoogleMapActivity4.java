@@ -85,7 +85,7 @@ public class GoogleMapActivity4 extends FragmentActivity implements OnMarkerClic
         GeoObject geoObject = mGoogleMapPlugin.getGeoObjectOwner(marker);
         if (geoObject != null) {
             String text = geoObject.getName();
-            String description = CustomWorldHelper3.OBJECT_DESCRIPTION_MAP.get(geoObject);
+            String description = CustomWorldHelper4.OBJECT_DESCRIPTION_MAP.get(geoObject);
             if (description != null) text = description;
             Toast.makeText(this,
                     text,

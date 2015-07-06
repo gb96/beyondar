@@ -168,7 +168,7 @@ public class Iteration4 extends FragmentActivity implements OnSeekBarChangeListe
     @Override
     public void onClick(View v) {
         if (v == mShowMap) {
-            Intent intent = new Intent(this, GoogleMapActivity3.class);
+            Intent intent = new Intent(this, GoogleMapActivity4.class);
             startActivity(intent);
         }
     }
@@ -219,7 +219,7 @@ public class Iteration4 extends FragmentActivity implements OnSeekBarChangeListe
             final String descriptionText;
 
             // Lookup description saved in the CustomWorldHelper dictionary:
-            final String lookupDescription = CustomWorldHelper3.OBJECT_DESCRIPTION_MAP.get(firstObj);
+            final String lookupDescription = CustomWorldHelper4.OBJECT_DESCRIPTION_MAP.get(firstObj);
             if (lookupDescription == null) {
                 descriptionText = "";
             } else {
