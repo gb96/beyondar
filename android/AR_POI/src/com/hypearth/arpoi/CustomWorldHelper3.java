@@ -33,14 +33,23 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomWorldHelper3 {
-    public static final int LIST_TYPE_EVENT = "event".hashCode();
-    public static final int LIST_TYPE_ORGANISATION = "organisation".hashCode();
-    public static final int LIST_TYPE_PLACE = "place".hashCode();
+    public static final String LIST_TYPE_EVENT = "event";
+    public static final int LIST_TYPE_EVENT_CODE = LIST_TYPE_EVENT.hashCode();
+
+    public static final String LIST_TYPE_ORGANISATION = "organisation";
+    public static final int LIST_TYPE_ORGANISATION_CODE = LIST_TYPE_ORGANISATION.hashCode();
+
+    public static final String LIST_TYPE_PLACE = "place";
+    public static final int LIST_TYPE_PLACE_CODE = LIST_TYPE_PLACE.hashCode();
+
+    public static final String[] HISTORY_SA_LIST_TYPES = {LIST_TYPE_EVENT, LIST_TYPE_ORGANISATION, LIST_TYPE_PLACE};
+
     public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new HashMap<>();
     // Tag used to cancel the JSON HTTP request
-    static final String tag_json_obj = "json_obj_req";
+    static final String tag_json_obj = "json_obj_req/";
     public static World sharedWorld;
 
     public static World generateObjects(Context context) {
@@ -63,63 +72,65 @@ public class CustomWorldHelper3 {
         final String urlOrganisation = "organisation";
         final String urlPlace = "place";
 
-        final String[] urls = {urlEvent, urlOrganisation, urlPlace};
+        final ProgressDialog pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading History SA data...");
+        pDialog.show();
 
-        for (final String url : urls) {
-            final ProgressDialog pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Loading History SA " + url + "s...");
-            pDialog.show();
+        // Object Id needs to be an atomic sequence of Long:
+        final AtomicLong objectId = new AtomicLong(2000L);
 
-            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                    urlParent + url, null,
-                    new Response.Listener<JSONObject>() {
+        for (final String url : HISTORY_SA_LIST_TYPES) {
 
-                        @Override
-                        public void onResponse(final JSONObject response) {
-                            Log.d(CustomWorldHelper3.class.getName(), response.toString());
-                            pDialog.hide();
+            final JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                urlParent + url, null,
+                new Response.Listener<JSONObject>() {
 
-                            Log.i(CustomWorldHelper3.class.getName(), "Got History SA " + url + "s...");
-                            try {
-                                JSONArray features = response.getJSONArray("features");
-                                if (features != null) {
-                                    Log.i(CustomWorldHelper3.class.getName(), "Got History SA " + url + " Features, count=" + features.length());
-                                    for (int i = 0; i < features.length(); i++) {
-                                        JSONObject feature = features.getJSONObject(i);
-                                        JSONObject geometry = feature.getJSONObject("geometry");
-                                        JSONArray coordinates = geometry.getJSONArray("coordinates");
-                                        double lng = coordinates.getDouble(0);
-                                        double lat = coordinates.getDouble(1);
-                                        JSONObject properties = feature.getJSONObject("properties");
-                                        String title = properties.getString("TITLE");
-                                        String description = properties.getString("DESCRIPTION");
+                    @Override
+                    public void onResponse(final JSONObject response) {
+                        Log.d(CustomWorldHelper3.class.getName(), response.toString());
+                        pDialog.hide();
 
-                                        GeoObject go1 = new GeoObject(2000l + i);
-                                        go1.setGeoPosition(lat, lng);
-                                        go1.setImageUri("assets://historysalogo-" + url + ".png");
-                                        go1.setName(title);
-                                        OBJECT_DESCRIPTION_MAP.put(go1, description);
-                                        // Add the GeoObject to the world
-                                        // TODO color-code Places/Events/Organisations/photos etc
-                                        sharedWorld.addBeyondarObject(go1, url.hashCode());
-                                    }
+                        Log.i(CustomWorldHelper3.class.getName(), "Got History SA " + url + "s...");
+                        try {
+                            final JSONArray features = response.getJSONArray("features");
+                            if (features != null) {
+                                Log.i(CustomWorldHelper3.class.getName(), "Got History SA " + url + " Features, count=" + features.length());
+                                for (int i = 0; i < features.length(); i++) {
+                                    final JSONObject feature = features.getJSONObject(i);
+                                    final JSONObject geometry = feature.getJSONObject("geometry");
+                                    final JSONArray coordinates = geometry.getJSONArray("coordinates");
+                                    final double lng = coordinates.getDouble(0);
+                                    final double lat = coordinates.getDouble(1);
+                                    final JSONObject properties = feature.getJSONObject("properties");
+                                    final String title = properties.getString("TITLE");
+                                    final String description = properties.getString("DESCRIPTION");
+
+                                    final GeoObject go1 = new GeoObject(objectId.incrementAndGet());
+                                    go1.setGeoPosition(lat, lng);
+                                    go1.setImageUri("assets://historysalogo-" + url + ".png");
+                                    go1.setName(title);
+                                    OBJECT_DESCRIPTION_MAP.put(go1, description);
+                                    // Add the GeoObject to the world
+                                    // color-code Places/Events/Organisations/photos etc
+                                    sharedWorld.addBeyondarObject(go1, url.hashCode());
                                 }
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
-                        }
-                    }, new Response.ErrorListener() {
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(CustomWorldHelper3.class.getName(), "Error: " + error.getMessage());
-                    pDialog.hide();
-                }
-            }) {
+                        } catch (JSONException e) {
+                            Log.e(CustomWorldHelper3.class.getName(), "Problem fetching GEOJSON \" + url + \" from HistorySA", e);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d(CustomWorldHelper3.class.getName(), "Error: " + error.getMessage());
+                        pDialog.hide();
+                    }
+                }) {
             };
             // Adding request to request queue
-            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj + url);
         }
 
 

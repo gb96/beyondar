@@ -37,6 +37,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
     private GoogleMap mMap;
     private GoogleMapWorldPlugin mGoogleMapPlugin;
     private World mWorld;
+    private Location lastLocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +95,14 @@ public class GoogleMapActivity extends FragmentActivity implements OnMarkerClick
     public void onLocationChanged(Location location) {
         if (mWorld != null) {
             mWorld.setLocation(location);
-            LatLng userLocation = new LatLng(mWorld.getLatitude(), mWorld.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
+            if (lastLocation == null || lastLocation.distanceTo(location) > 1000) {
+                // only move the map if the movement is greater than 1000 metres
+                LatLng userLocation = new LatLng(mWorld.getLatitude(), mWorld.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
+                // mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
+            }
         }
+        lastLocation = location;
     }
 
     @Override

@@ -57,33 +57,19 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 1");
-
         // Hide the window title.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 2");
-
         loadViewFromXML();
-
-        Log.i(Iteration3.class.getName(), "onCreate() 3");
 
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 4");
-
         mTextviewMaxDistance = (TextView) findViewById(R.id.textMaxDistance);
-
-        Log.i(Iteration3.class.getName(), "onCreate() 5");
 
         mSeekBarMaxDistance = (SeekBar) findViewById(R.id.seekBarMaxDistance);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 6");
-
         mRadarView = (RadarView) findViewById(R.id.radarView);
-
-        Log.i(Iteration3.class.getName(), "onCreate() 7");
 
         // Create the Radar plugin
         mRadarPlugin = new RadarWorldPlugin(this);
@@ -93,35 +79,25 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         mRadarPlugin.setMaxDistance(100);
 
         // We can customize the color of the items on the Radar view
-        mRadarPlugin.setListColor("event".hashCode(), Color.RED);
-        mRadarPlugin.setListColor("organisation".hashCode(), Color.GREEN);
-        mRadarPlugin.setListColor("place".hashCode(), Color.BLUE);
+        mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_EVENT_CODE, Color.RED);
+        mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_ORGANISATION_CODE, Color.GREEN);
+        mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_PLACE_CODE, Color.BLUE);
         // and also the size of the dots on the Radar view
         // mRadarPlugin.setListDotRadius(CustomWorldHelper3.LIST_TYPE_EXAMPLE_1, 3);
-
-        Log.i(Iteration3.class.getName(), "onCreate() 8");
 
         // We create the world and fill it ...
         mWorld = CustomWorldHelper.generateObjects(this);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 9");
-
         // .. and send it to the fragment
         mBeyondarFragment.setWorld(mWorld);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 10");
-
         // add the plugin
         mWorld.addPlugin(mRadarPlugin);
-
-        Log.i(Iteration3.class.getName(), "onCreate() 11");
 
         // Radar range slider
         mSeekBarMaxDistance.setOnSeekBarChangeListener(this);
         mSeekBarMaxDistance.setMax(10_000);
         mSeekBarMaxDistance.setProgress(4000);
-
-        Log.i(Iteration3.class.getName(), "onCreate() 12");
 
         // Lets add the user position to the map
         GeoObject user = new GeoObject(1000l);
@@ -130,19 +106,13 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         user.setName("User position");
         mWorld.addBeyondarObject(user);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 13");
-
         BeyondarLocationManager.addWorldLocationUpdate(mWorld);
         BeyondarLocationManager.addGeoObjectLocationUpdate(user);
         BeyondarLocationManager.addLocationListener(this);
 
-        Log.i(Iteration3.class.getName(), "onCreate() 14");
-
         // We need to set the LocationManager to the BeyondarLocationManager.
         BeyondarLocationManager
                 .setLocationManager(mLocationManager);
-
-        Log.i(Iteration3.class.getName(), "onCreate() done");
     }
 
     @Override
