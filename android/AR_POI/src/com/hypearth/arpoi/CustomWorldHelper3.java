@@ -33,21 +33,30 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomWorldHelper3 {
     public static final String LIST_TYPE_EVENT = "event";
-    public static final int LIST_TYPE_EVENT_CODE = LIST_TYPE_EVENT.hashCode();
+    public static final int LIST_TYPE_EVENT_CODE = 1;
 
     public static final String LIST_TYPE_ORGANISATION = "organisation";
-    public static final int LIST_TYPE_ORGANISATION_CODE = LIST_TYPE_ORGANISATION.hashCode();
+    public static final int LIST_TYPE_ORGANISATION_CODE = 2;
 
     public static final String LIST_TYPE_PLACE = "place";
-    public static final int LIST_TYPE_PLACE_CODE = LIST_TYPE_PLACE.hashCode();
+    public static final int LIST_TYPE_PLACE_CODE = 3;
 
     public static final String[] HISTORY_SA_LIST_TYPES = {LIST_TYPE_EVENT, LIST_TYPE_ORGANISATION, LIST_TYPE_PLACE};
 
-    public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new HashMap<>();
+    public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new ConcurrentHashMap<>();
+
+    static final Map<String, Integer> EVENT_TYPE_CODE_MAP = new HashMap<>();
+    static {
+        EVENT_TYPE_CODE_MAP.put(LIST_TYPE_EVENT, LIST_TYPE_EVENT_CODE);
+        EVENT_TYPE_CODE_MAP.put(LIST_TYPE_ORGANISATION, LIST_TYPE_ORGANISATION_CODE);
+        EVENT_TYPE_CODE_MAP.put(LIST_TYPE_PLACE, LIST_TYPE_PLACE_CODE);
+    }
+
     // Tag used to cancel the JSON HTTP request
     static final String tag_json_obj = "json_obj_req/";
     public static World sharedWorld;
@@ -68,9 +77,6 @@ public class CustomWorldHelper3 {
 
         Log.i(CustomWorldHelper3.class.getName(), "generateObjects() attempting to get History SA places");
         final String urlParent = "http://data.history.sa.gov.au/sahistoryhub/";
-        final String urlEvent = "event";
-        final String urlOrganisation = "organisation";
-        final String urlPlace = "place";
 
         final ProgressDialog pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading History SA data...");
@@ -112,7 +118,7 @@ public class CustomWorldHelper3 {
                                     OBJECT_DESCRIPTION_MAP.put(go1, description);
                                     // Add the GeoObject to the world
                                     // color-code Places/Events/Organisations/photos etc
-                                    sharedWorld.addBeyondarObject(go1, url.hashCode());
+                                    sharedWorld.addBeyondarObject(go1, EVENT_TYPE_CODE_MAP.get(url));
                                 }
                             }
 

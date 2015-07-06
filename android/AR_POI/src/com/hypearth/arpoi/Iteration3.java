@@ -76,23 +76,23 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // set the radar view in to our radar plugin
         mRadarPlugin.setRadarView(mRadarView);
         // Set how far (in meters) we want to display in the view
-        mRadarPlugin.setMaxDistance(100);
+        mRadarPlugin.setMaxDistance(2000);
 
         // We can customize the color of the items on the Radar view
         mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_EVENT_CODE, Color.RED);
         mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_ORGANISATION_CODE, Color.GREEN);
-        mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_PLACE_CODE, Color.BLUE);
+        mRadarPlugin.setListColor(CustomWorldHelper3.LIST_TYPE_PLACE_CODE, Color.YELLOW);
         // and also the size of the dots on the Radar view
         // mRadarPlugin.setListDotRadius(CustomWorldHelper3.LIST_TYPE_EXAMPLE_1, 3);
 
         // We create the world and fill it ...
-        mWorld = CustomWorldHelper.generateObjects(this);
-
-        // .. and send it to the fragment
-        mBeyondarFragment.setWorld(mWorld);
+        mWorld = CustomWorldHelper3.generateObjects(this);
 
         // add the plugin
         mWorld.addPlugin(mRadarPlugin);
+
+        // .. and send it to the fragment
+        mBeyondarFragment.setWorld(mWorld);
 
         // Radar range slider
         mSeekBarMaxDistance.setOnSeekBarChangeListener(this);
