@@ -38,13 +38,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomWorldHelper3 {
     public static final String LIST_TYPE_EVENT = "event";
-    public static final int LIST_TYPE_EVENT_CODE = 1;
+    public static final int LIST_TYPE_EVENT_CODE = 0;
 
     public static final String LIST_TYPE_ORGANISATION = "organisation";
-    public static final int LIST_TYPE_ORGANISATION_CODE = 2;
+    public static final int LIST_TYPE_ORGANISATION_CODE = 1;
 
     public static final String LIST_TYPE_PLACE = "place";
-    public static final int LIST_TYPE_PLACE_CODE = 3;
+    public static final int LIST_TYPE_PLACE_CODE = 2;
 
     public static final String[] HISTORY_SA_LIST_TYPES = {LIST_TYPE_EVENT, LIST_TYPE_ORGANISATION, LIST_TYPE_PLACE};
 

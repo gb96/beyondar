@@ -13,7 +13,8 @@
         android:id="@+id/showMapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:text="Show map" />
+        android:layout_gravity="top|left"
+        android:layout_margin="4dip"
+        android:text="Map" />
     
 </FrameLayout>

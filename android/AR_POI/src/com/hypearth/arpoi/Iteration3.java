@@ -60,16 +60,10 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // Hide the window title.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        loadViewFromXML();
-
         mLocationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
 
-        mTextviewMaxDistance = (TextView) findViewById(R.id.textMaxDistance);
-
-        mSeekBarMaxDistance = (SeekBar) findViewById(R.id.seekBarMaxDistance);
-
-        mRadarView = (RadarView) findViewById(R.id.radarView);
+        loadViewFromXML();
 
         // Create the Radar plugin
         mRadarPlugin = new RadarWorldPlugin(this);
@@ -145,6 +139,12 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         mShowMap = (Button) findViewById(R.id.showMapButton);
         if (mShowMap != null)
             mShowMap.setOnClickListener(this);
+
+        mTextviewMaxDistance = (TextView) findViewById(R.id.textMaxDistance);
+
+        mSeekBarMaxDistance = (SeekBar) findViewById(R.id.seekBarMaxDistance);
+
+        mRadarView = (RadarView) findViewById(R.id.radarView);
 
         Log.i(Iteration3.class.getName(), "loadViewFromXML() done");
     }
