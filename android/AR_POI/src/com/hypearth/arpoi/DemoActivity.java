@@ -31,8 +31,9 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 	private ListView mLisViewt;
     private String[] values = new String[]{
             "1. AR Marker test",
-			"2. GPS Location with SA History Places",
-			"3. GPS with SA History Places, Events, Organisations",
+			"2. History SA Places",
+			"3. History SA Places, Events, Organisations",
+			"4. History SA Events, Organisations, Places, Things",
 	};
 
 	@Override
@@ -64,32 +65,8 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 			openActivity(Iteration3.class);
 			break;
 		case 3:
-            // openActivity(CameraWithGoogleMapsActivity.class);
-            break;
-		case 4:
-            // openActivity(CameraWithTouchEventsActivity.class);
-            break;
-		case 5:
-            // openActivity(CameraWithScreenShotActivity.class);
-            break;
-		case 6:
-            // openActivity(ChangeGeoObjectImagesOnTouchActivity.class);
-            break;
-		case 7:
-            // openActivity(AttachViewToGeoObjectActivity.class);
-            break;
-		case 8:
-            // openActivity(StaticViewGeoObjectActivity.class);
-            break;
-		case 9:
-            // openActivity(SimpleCameraWithCustomFilterActivity.class);
-            break;
-		case 10:
-            // openActivity(SimpleCameraWithRadarActivity.class);
-            break;
-		case 11:
-            // openActivity(BeyondarLocationManagerMapActivity.class);
-            break;
+			openActivity(Iteration4.class);
+			break;
 		default:
 			break;
 		}

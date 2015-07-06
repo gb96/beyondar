@@ -45,8 +45,8 @@ android {
     }
 
     defaultConfig {
-        versionCode 103
-        versionName "0.1.3"
+        versionCode 104
+        versionName "0.1.4"
         minSdkVersion 9
         targetSdkVersion 19
     }

@@ -34,7 +34,7 @@ public class CustomWorldHelper {
 
 		// The user can set the default bitmap. This is useful if you are
 		// loading images form Internet and the connection get lost
-		sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknow_icon);
+		sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknown_icon);
 
 		// User position (you can change it using the GPS listeners form Android
 		// API)

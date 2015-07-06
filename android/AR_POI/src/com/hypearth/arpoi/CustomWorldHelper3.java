@@ -51,15 +51,15 @@ public class CustomWorldHelper3 {
     public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new ConcurrentHashMap<>();
 
     static final Map<String, Integer> EVENT_TYPE_CODE_MAP = new HashMap<>();
+    // Tag used to cancel the JSON HTTP request
+    static final String tag_json_obj = "json_obj_req/";
+    public static World sharedWorld;
+
     static {
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_EVENT, LIST_TYPE_EVENT_CODE);
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_ORGANISATION, LIST_TYPE_ORGANISATION_CODE);
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_PLACE, LIST_TYPE_PLACE_CODE);
     }
-
-    // Tag used to cancel the JSON HTTP request
-    static final String tag_json_obj = "json_obj_req/";
-    public static World sharedWorld;
 
     public static World generateObjects(Context context) {
         Log.i(CustomWorldHelper3.class.getName(), "generateObjects");
@@ -71,7 +71,7 @@ public class CustomWorldHelper3 {
 
         // The user can set the default bitmap. This is useful if you are
         // loading images form Internet and the connection get lost
-        sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknow_icon);
+        sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknown_icon);
 
         Log.i(CustomWorldHelper3.class.getName(), "generateObjects() attempting to get History SA places");
         final String urlParent = "http://data.history.sa.gov.au/sahistoryhub/";
