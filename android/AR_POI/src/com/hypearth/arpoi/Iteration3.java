@@ -117,6 +117,9 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         BeyondarLocationManager
                 .setLocationManager(mLocationManager);
 
+        // set "click" listener for the geoObjects
+        mBeyondarFragment.setOnClickBeyondarObjectListener(this);
+
         // Filter Phone Motion Sensor to damp shakey movements
         LowPassFilter.ALPHA = 0.015f;
     }

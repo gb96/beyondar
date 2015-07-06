@@ -39,7 +39,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFile 'C:/Users/bowering/git/AR-POI/android/AR_POI/proguard.cfg'
         }
     }
