@@ -30,15 +30,20 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
 import com.beyondar.android.plugin.radar.RadarView;
 import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 import com.beyondar.android.util.location.BeyondarLocationManager;
+import com.beyondar.android.view.OnClickBeyondarObjectListener;
+import com.beyondar.android.world.BeyondarObject;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 
-public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListener, View.OnClickListener, LocationListener {
+import java.util.ArrayList;
+
+public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListener, View.OnClickListener, LocationListener, OnClickBeyondarObjectListener {
 
     private BeyondarFragmentSupport mBeyondarFragment;
     private RadarView mRadarView;
@@ -64,6 +69,9 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
                 getSystemService(Context.LOCATION_SERVICE);
 
         loadViewFromXML();
+
+        // maximum distance of objects from user to consider rendering (metres)
+        mBeyondarFragment.setMaxDistanceToRender(2_000);
 
         // Create the Radar plugin
         mRadarPlugin = new RadarWorldPlugin(this);
@@ -193,6 +201,25 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // To avoid unnecessary battery usage disable BeyondarLocationManager
         // when the activity goes on pause.
         BeyondarLocationManager.disable();
+    }
+
+    @Override
+    public void onClickBeyondarObject(final ArrayList<BeyondarObject> beyondarObjects) {
+        if (beyondarObjects.size() > 0) {
+            BeyondarObject firstObj = beyondarObjects.get(0);
+            final long firstObjId = firstObj.getId();
+            final String descriptionText;
+
+            // Lookup description saved in the CustomWorldHelper dictionary:
+            final String lookupDescription = CustomWorldHelper3.OBJECT_DESCRIPTION_MAP.get(firstObj);
+            if (lookupDescription == null) {
+                descriptionText = "";
+            } else {
+                descriptionText = ": " + lookupDescription;
+            }
+            Toast.makeText(this, firstObj.getName() + descriptionText,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
 }

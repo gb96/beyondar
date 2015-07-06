@@ -73,8 +73,6 @@ public class CustomWorldHelper3 {
         // loading images form Internet and the connection get lost
         sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknow_icon);
 
-        // sharedWorld.setGeoPosition(41.90533734214473d, 2.565848038959814d);
-
         Log.i(CustomWorldHelper3.class.getName(), "generateObjects() attempting to get History SA places");
         final String urlParent = "http://data.history.sa.gov.au/sahistoryhub/";
 
