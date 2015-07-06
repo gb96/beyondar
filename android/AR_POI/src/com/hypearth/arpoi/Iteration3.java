@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beyondar.android.fragment.BeyondarFragmentSupport;
+import com.beyondar.android.opengl.util.LowPassFilter;
 import com.beyondar.android.plugin.radar.RadarView;
 import com.beyondar.android.plugin.radar.RadarWorldPlugin;
 import com.beyondar.android.util.location.BeyondarLocationManager;
@@ -115,6 +116,9 @@ public class Iteration3 extends FragmentActivity implements OnSeekBarChangeListe
         // We need to set the LocationManager to the BeyondarLocationManager.
         BeyondarLocationManager
                 .setLocationManager(mLocationManager);
+
+        // Filter Phone Motion Sensor to damp shakey movements
+        LowPassFilter.ALPHA = 0.015f;
     }
 
     @Override
