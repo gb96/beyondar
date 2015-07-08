@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -219,18 +220,30 @@ public class Iteration5 extends FragmentActivity implements OnSeekBarChangeListe
     public void onClickBeyondarObject(final ArrayList<BeyondarObject> beyondarObjects) {
         if (beyondarObjects.size() > 0) {
             BeyondarObject firstObj = beyondarObjects.get(0);
-            final long firstObjId = firstObj.getId();
-            final String descriptionText;
-
-            // Lookup description saved in the CustomWorldHelper dictionary:
-            final String lookupDescription = CustomWorldHelper5.OBJECT_DESCRIPTION_MAP.get(firstObj);
-            if (lookupDescription == null) {
-                descriptionText = "";
+            if (firstObj.equals(selectedObject)) {
+                // selected object has been clicked on again
+                final String moreInfoUrl = CustomWorldHelper5.OBJECT_INFO_URL_MAP.get(firstObj);
+                // launch this URL as intent
+                Uri webpage = Uri.parse(moreInfoUrl);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             } else {
-                descriptionText = ": " + lookupDescription;
+                selectedObject = firstObj;
+                final long firstObjId = firstObj.getId();
+                final String descriptionText;
+
+                // Lookup description saved in the CustomWorldHelper dictionary:
+                final String lookupDescription = CustomWorldHelper5.OBJECT_DESCRIPTION_MAP.get(firstObj);
+                if (lookupDescription == null) {
+                    descriptionText = "";
+                } else {
+                    descriptionText = ": " + lookupDescription;
+                }
+                Toast.makeText(this, firstObj.getName() + descriptionText,
+                        Toast.LENGTH_LONG).show();
             }
-            Toast.makeText(this, firstObj.getName() + descriptionText,
-                    Toast.LENGTH_LONG).show();
         }
     }
 
