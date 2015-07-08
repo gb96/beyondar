@@ -34,7 +34,8 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 			"2. History SA Places",
 			"3. History SA Places, Events, Organisations",
 			"4. History SA Events, Organisations, Places, Things",
-	};
+            "5. History SA data, ABC Online News items",
+    };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,10 @@ public class DemoActivity extends Activity implements OnItemClickListener {
 		case 3:
 			openActivity(Iteration4.class);
 			break;
-		default:
+            case 4:
+                openActivity(Iteration5.class);
+                break;
+            default:
 			break;
 		}
 	}
