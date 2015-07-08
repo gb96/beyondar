@@ -56,6 +56,9 @@ public class Iteration5 extends FragmentActivity implements OnSeekBarChangeListe
     private TextView mTextviewMaxDistance;
     private Button mShowMap;
 
+    private BeyondarObject selectedObject = null;
+
+
     /**
      * Called when the activity is first created.
      */
@@ -91,7 +94,7 @@ public class Iteration5 extends FragmentActivity implements OnSeekBarChangeListe
         // mRadarPlugin.setListDotRadius(CustomWorldHelper4.LIST_TYPE_EXAMPLE_1, 3);
 
         // We create the world and fill it ...
-        mWorld = CustomWorldHelper4.generateObjects(this);
+        mWorld = CustomWorldHelper5.generateObjects(this);
 
         // add the plugin
         mWorld.addPlugin(mRadarPlugin);

@@ -15,8 +15,10 @@
  */
 package com.hypearth.arpoi;
 
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
     private GoogleMapWorldPlugin mGoogleMapPlugin;
     private World mWorld;
     private Location lastLocation = null;
+    private Marker selectedMarker = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +87,29 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
         // method:
         GeoObject geoObject = mGoogleMapPlugin.getGeoObjectOwner(marker);
         if (geoObject != null) {
-            String text = geoObject.getName();
-            String description = CustomWorldHelper5.OBJECT_DESCRIPTION_MAP.get(geoObject);
-            if (description != null) text = description;
-            Toast.makeText(this,
-                    text,
-                    Toast.LENGTH_LONG).show();
+            if (marker == selectedMarker) {
+                // selected marker was clicked again
+                String moreInfoUrl = CustomWorldHelper5.OBJECT_INFO_URL_MAP.get(geoObject);
+                if (moreInfoUrl != null) {
+                    // launch this URL as intent
+                    Uri webpage = Uri.parse(moreInfoUrl);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                }
+            } else {
+                // this marker is now the selected one
+                selectedMarker = marker;
+                String text = geoObject.getName();
+                String description = CustomWorldHelper5.OBJECT_DESCRIPTION_MAP.get(geoObject);
+                if (description != null) text = description;
+                Toast.makeText(this,
+                        text,
+                        Toast.LENGTH_LONG).show();
+            }
+        } else {
+            selectedMarker = null;
         }
         return false;
     }

@@ -68,6 +68,7 @@ public class CustomWorldHelper5 {
     };
 
     public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new ConcurrentHashMap<>();
+    public static final Map<GeoObject, String> OBJECT_INFO_URL_MAP = new ConcurrentHashMap<>();
 
     static final Map<String, Integer> EVENT_TYPE_CODE_MAP = new HashMap<>();
     // Tag used to cancel the JSON HTTP request
@@ -129,12 +130,14 @@ public class CustomWorldHelper5 {
                                         final JSONObject properties = feature.getJSONObject("properties");
                                         final String title = properties.getString("TITLE");
                                         final String description = properties.getString("DESCRIPTION");
+                                        final String moreInfoUrl = properties.getString("MORE_INFORMATION");
 
                                         final GeoObject go1 = new GeoObject(objectId.incrementAndGet());
                                         go1.setGeoPosition(lat, lng);
                                         go1.setImageUri("assets://historysalogo-" + url + ".png");
                                         go1.setName(title);
                                         OBJECT_DESCRIPTION_MAP.put(go1, description);
+                                        OBJECT_INFO_URL_MAP.put(go1, moreInfoUrl);
                                         // Add the GeoObject to the world
                                         // color-code Places/Events/Organisations/photos etc
                                         sharedWorld.addBeyondarObject(go1, EVENT_TYPE_CODE_MAP.get(url));
@@ -181,12 +184,15 @@ public class CustomWorldHelper5 {
                                 final double lat = story.getDouble("Latitude");
                                 final String title = story.getString("Title");
                                 final String description = story.getString("Primary image caption");
+                                final String moreInfoUrl = story.getString("URL");
                                 final String imageUrl = story.getString("Primary image");
                                 final GeoObject go1 = new GeoObject(objectId.incrementAndGet());
                                 go1.setGeoPosition(lat, lng);
                                 go1.setImageUri(imageUrl);
                                 go1.setName(title);
                                 OBJECT_DESCRIPTION_MAP.put(go1, description);
+                                OBJECT_INFO_URL_MAP.put(go1, moreInfoUrl);
+
                                 // Add the GeoObject to the world
                                 // color-code Places/Events/Organisations/photos etc
                                 sharedWorld.addBeyondarObject(go1, LIST_TYPE_NEWS_CODE);
