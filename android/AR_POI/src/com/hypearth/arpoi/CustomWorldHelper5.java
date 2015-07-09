@@ -27,6 +27,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
+import com.google.maps.android.clustering.ClusterManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomWorldHelper5 {
+    // ABC News Local Photo stories.  7.6 MB JSON Format. See http://data.gov.au/dataset/abc-local-online-photo-stories-2009-2014
     public static final String ABC_ONLINE_URL = "http://data.gov.au/dataset/3fd356c6-0ad4-453e-82e9-03af582024c3/resource/3182591a-085a-465b-b8e5-6bfd934137f1/download/Localphotostories2009-2014-JSON.json";
 
     public static final String LIST_TYPE_EVENT = "event";
@@ -90,7 +92,7 @@ public class CustomWorldHelper5 {
             LIST_TYPE_NEWS_CODE,
     };
 
-    public static World generateObjects(Context context) {
+    public static World generateObjects(final Context context) {
         Log.i(CustomWorldHelper5.class.getName(), "generateObjects");
 
         if (sharedWorld != null) {

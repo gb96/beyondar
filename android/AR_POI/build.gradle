@@ -1,6 +1,8 @@
 buildscript {
     repositories {
-        mavenCentral()
+        // mavenCentral()
+        jcenter()
+        // maven { url 'http://repo2.maven.org/maven2'}
         maven { url 'https://www.testfairy.com/maven' }
     }
 
@@ -11,6 +13,7 @@ buildscript {
 }
 
 apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'testfairy'
 
 
@@ -28,7 +31,12 @@ dependencies {
     // compile 'com.android.support:support-annotations:22.2.0'
     // compile 'com.android.support:support-v13:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
-    // compile files('libs/android-support-v4.jar')
+
+    // For ClusterManager
+    compile 'com.google.maps.android:android-maps-utils:0.3.4'
+    // compile files('libs/android-maps-utils-0.3.4.aar')
+
+
     compile files('libs/GoogleConversionTrackingSdk-2.2.2.jar')
     compile files('libs/beyondar-googlemap-plugin-v0.9.0.jar')
     compile files('libs/beyondar-radar-plugin-v0.9.1.jar')
