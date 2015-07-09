@@ -40,7 +40,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
     private GoogleMapWorldPlugin mGoogleMapPlugin;
     private World mWorld;
     private Location lastLocation = null;
-    private Marker selectedMarker = null;
+    private GeoObject selectedGeoObject = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
         // method:
         GeoObject geoObject = mGoogleMapPlugin.getGeoObjectOwner(marker);
         if (geoObject != null) {
-            if (marker == selectedMarker) {
+            if (geoObject.equals(selectedGeoObject)) {
                 // selected marker was clicked again
                 String moreInfoUrl = CustomWorldHelper5.OBJECT_INFO_URL_MAP.get(geoObject);
                 if (moreInfoUrl != null) {
@@ -100,7 +100,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
                 }
             } else {
                 // this marker is now the selected one
-                selectedMarker = marker;
+                selectedGeoObject = geoObject;
                 String text = geoObject.getName();
                 String description = CustomWorldHelper5.OBJECT_DESCRIPTION_MAP.get(geoObject);
                 if (description != null) text = description;
@@ -109,7 +109,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
                         Toast.LENGTH_LONG).show();
             }
         } else {
-            selectedMarker = null;
+            selectedGeoObject = null;
         }
         return false;
     }

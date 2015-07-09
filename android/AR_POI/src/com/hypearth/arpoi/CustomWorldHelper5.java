@@ -82,6 +82,13 @@ public class CustomWorldHelper5 {
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_THING, LIST_TYPE_THING_CODE);
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_NEWS, LIST_TYPE_NEWS_CODE);
     }
+    public static final int[] ALL_LIST_TYPE_CODES = {
+            LIST_TYPE_EVENT_CODE,
+            LIST_TYPE_ORGANISATION_CODE,
+            LIST_TYPE_PLACE_CODE,
+            LIST_TYPE_THING_CODE,
+            LIST_TYPE_NEWS_CODE,
+    };
 
     public static World generateObjects(Context context) {
         Log.i(CustomWorldHelper5.class.getName(), "generateObjects");
@@ -94,6 +101,17 @@ public class CustomWorldHelper5 {
         // The user can set the default bitmap. This is useful if you are
         // loading images form Internet and the connection get lost
         sharedWorld.setDefaultImage(R.drawable.beyondar_default_unknown_icon);
+
+        // XXX Workaround bug in Radar Plugin when render without at least one item in every defined ObjectList
+        /*
+         * java.lang.NullPointerException: Attempt to invoke virtual method 'int com.beyondar.android.world.BeyondarObjectList.size()' on a null object reference
+	     * at com.beyondar.android.plugin.radar.RadarView.drawRadarPoints(RadarView.java:69)
+         */
+        final GeoObject dummyObject = new GeoObject(1L);
+        for (int listTypeCode : ALL_LIST_TYPE_CODES) {
+            sharedWorld.addBeyondarObject(dummyObject, listTypeCode);
+        }
+
 
         Log.i(CustomWorldHelper5.class.getName(), "generateObjects() attempting to get History SA data");
         final String historySaUrlParent = "http://data.history.sa.gov.au/sahistoryhub/";
