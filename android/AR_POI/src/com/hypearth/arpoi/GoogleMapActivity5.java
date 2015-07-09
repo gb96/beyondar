@@ -92,7 +92,8 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
         for (final BeyondarObjectList objectList :  mWorld.getBeyondarObjectLists()) {
             for (final BeyondarObject beyondarObject : objectList) {
                 if (beyondarObject instanceof GeoObject) {
-                    mClusterManager.addItem(new MyClusterItem(selectedGeoObject.getLatitude(), selectedGeoObject.getLongitude()));
+                    final GeoObject geoObject = (GeoObject)beyondarObject;
+                    mClusterManager.addItem(new MyClusterItem(geoObject.getLatitude(), geoObject.getLongitude()));
                 }
             }
         }
