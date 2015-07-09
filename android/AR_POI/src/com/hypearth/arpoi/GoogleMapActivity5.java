@@ -25,9 +25,6 @@ import android.widget.Toast;
 
 import com.beyondar.android.plugin.googlemap.GoogleMapWorldPlugin;
 import com.beyondar.android.util.location.BeyondarLocationManager;
-import com.beyondar.android.util.math.geom.Point3;
-import com.beyondar.android.world.BeyondarObject;
-import com.beyondar.android.world.BeyondarObjectList;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,9 +33,6 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-import com.google.maps.android.clustering.ClusterManager;
-
-import java.util.List;
 
 public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClickListener, LocationListener {
 
@@ -49,7 +43,7 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
     private GeoObject selectedGeoObject = null;
 
     // Cluster manager for markers that would otherwise be overlapping in the view
-    private ClusterManager<MyClusterItem> mClusterManager = null;
+    // private ClusterManager<MyClusterItem> mClusterManager = null;
 
 
     @Override
@@ -63,11 +57,11 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
         }
 
         // Initialize the manager with the context and the map.
-        mClusterManager = new ClusterManager<>(this, mMap);
+        //mClusterManager = new ClusterManager<>(this, mMap);
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
-        mMap.setOnCameraChangeListener(mClusterManager);
-        mMap.setOnMarkerClickListener(mClusterManager);
+        //mMap.setOnCameraChangeListener(mClusterManager);
+        //mMap.setOnMarkerClickListener(mClusterManager);
 
         // We create the world and fill the world
         mWorld = CustomWorldHelper5.generateObjects(this);
@@ -85,18 +79,6 @@ public class GoogleMapActivity5 extends FragmentActivity implements OnMarkerClic
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mGoogleMapPlugin.getLatLng(), 15));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(19), 2000, null);
-
-        // add all markers to the Cluster Manager
-        // XXX note this will not work if markers have not yet been loaded.
-        // TODO add a callback for when a new item is added to the map, so it can also be added to the ClusterManager
-        for (final BeyondarObjectList objectList :  mWorld.getBeyondarObjectLists()) {
-            for (final BeyondarObject beyondarObject : objectList) {
-                if (beyondarObject instanceof GeoObject) {
-                    final GeoObject geoObject = (GeoObject)beyondarObject;
-                    mClusterManager.addItem(new MyClusterItem(geoObject.getLatitude(), geoObject.getLongitude()));
-                }
-            }
-        }
 
         // Lets add the user position
         GeoObject user = new GeoObject(1_000L);

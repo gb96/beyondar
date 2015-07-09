@@ -27,7 +27,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.beyondar.android.world.GeoObject;
 import com.beyondar.android.world.World;
-import com.google.maps.android.clustering.ClusterManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -68,10 +68,16 @@ public class CustomWorldHelper5 {
     public static final String[] ABC_ONLINE_LIST_TYPES = {
             LIST_TYPE_NEWS,
     };
-
     public static final Map<GeoObject, String> OBJECT_DESCRIPTION_MAP = new ConcurrentHashMap<>();
     public static final Map<GeoObject, String> OBJECT_INFO_URL_MAP = new ConcurrentHashMap<>();
-
+    public static final int[] ALL_LIST_TYPE_CODES = {
+            LIST_TYPE_EVENT_CODE,
+            LIST_TYPE_ORGANISATION_CODE,
+            LIST_TYPE_PLACE_CODE,
+            LIST_TYPE_THING_CODE,
+            LIST_TYPE_NEWS_CODE,
+    };
+    static final Random RANDOM = new Random();
     static final Map<String, Integer> EVENT_TYPE_CODE_MAP = new HashMap<>();
     // Tag used to cancel the JSON HTTP request
     static final String tag_json_obj = "json_obj_req/";
@@ -84,13 +90,6 @@ public class CustomWorldHelper5 {
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_THING, LIST_TYPE_THING_CODE);
         EVENT_TYPE_CODE_MAP.put(LIST_TYPE_NEWS, LIST_TYPE_NEWS_CODE);
     }
-    public static final int[] ALL_LIST_TYPE_CODES = {
-            LIST_TYPE_EVENT_CODE,
-            LIST_TYPE_ORGANISATION_CODE,
-            LIST_TYPE_PLACE_CODE,
-            LIST_TYPE_THING_CODE,
-            LIST_TYPE_NEWS_CODE,
-    };
 
     public static World generateObjects(final Context context) {
         Log.i(CustomWorldHelper5.class.getName(), "generateObjects");
@@ -200,14 +199,17 @@ public class CustomWorldHelper5 {
                         try {
                             for (int i = 0; i < response.length(); i++) {
                                 final JSONObject story = response.getJSONObject(i);
-                                final double lng = story.getDouble("Longitude");
-                                final double lat = story.getDouble("Latitude");
+                                // Add random noise to ABC item location because otherwise we have dozens
+                                // of items stacked at the same point.
+                                final double lng = story.getDouble("Longitude") + 1e4 * RANDOM.nextDouble();
+                                final double lat = story.getDouble("Latitude") + 1e4 * RANDOM.nextDouble();
+                                final double alt = 50 + RANDOM.nextInt(300);
                                 final String title = story.getString("Title");
                                 final String description = story.getString("Primary image caption");
                                 final String moreInfoUrl = story.getString("URL");
                                 final String imageUrl = story.getString("Primary image");
                                 final GeoObject go1 = new GeoObject(objectId.incrementAndGet());
-                                go1.setGeoPosition(lat, lng);
+                                go1.setGeoPosition(lat, lng, alt);
                                 go1.setImageUri(imageUrl);
                                 go1.setName(title);
                                 OBJECT_DESCRIPTION_MAP.put(go1, description);
