@@ -201,8 +201,8 @@ public class CustomWorldHelper5 {
                                 final JSONObject story = response.getJSONObject(i);
                                 // Add random noise to ABC item location because otherwise we have dozens
                                 // of items stacked at the same point.
-                                final double lng = story.getDouble("Longitude") + 1e4 * RANDOM.nextDouble();
-                                final double lat = story.getDouble("Latitude") + 1e4 * RANDOM.nextDouble();
+                                final double lng = story.getDouble("Longitude") + 1e-4 * RANDOM.nextDouble();
+                                final double lat = story.getDouble("Latitude") + 1e-4 * RANDOM.nextDouble();
                                 final double alt = 50 + RANDOM.nextInt(300);
                                 final String title = story.getString("Title");
                                 final String description = story.getString("Primary image caption");
